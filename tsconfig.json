@@ -1,0 +1,11 @@
+
+{
+    "files":[
+        "typeScriptMain.ts"
+    ],
+    "compilerOptions": {
+        "removeComments": true,
+        "outDir": "scripts",
+        "target": "es5"
+    }
+}
