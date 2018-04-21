@@ -1,5 +1,7 @@
 window.onload = function () {
     startPlaying();
+    firstRoll();
+    var rollNum = 1;
 };
 function startPlaying() {
     document.getElementById("letsPlay").addEventListener("click", function () {
@@ -8,4 +10,17 @@ function startPlaying() {
         document.getElementById("player1").textContent = player1;
         document.getElementById("player2").textContent = player2;
     });
+}
+function firstRoll() {
+    var images = createImageArray();
+    document.getElementById("roll").onclick = function () {
+        for (var i = 0; i < 5; i++) {
+            var randImage = images[Math.floor(Math.random() * 6)];
+            document.getElementsByTagName("img")[i].setAttribute("src", randImage);
+        }
+    };
+}
+function createImageArray() {
+    var images = ["dice/1.png", "dice/2.png", "dice/3.png", "dice/4.png", "dice/5.png", "dice/6.png"];
+    return images;
 }
