@@ -32,6 +32,7 @@ function startPlaying():void{
 function firstRoll():void{
     //let images = createImageArray();
     let imagesValue = createImageValueArray();
+    let imageArray = createImageArray();
     document.getElementById("roll").onclick = function(){
         for(var i = 0; i < 5; i++){
             let randValue:string = imagesValue[Math.floor(Math.random() * 6)]
@@ -39,9 +40,11 @@ function firstRoll():void{
             //let randTag:string = "slot"+i;
             //document.getElementsByTagName("img")[i].setAttribute("src", randImage);
             document.getElementsByTagName("img")[i].setAttribute("value", randValue);
+            let giveImgValue = parseInt(document.getElementsByTagName("img")[i].getAttribute("value"))
+            document.getElementsByTagName("img")[i].setAttribute("src", imageArray[giveImgValue-1])
         }
         
-        asignImagesToImageTags();
+        
     }  
 }
 /**
@@ -49,24 +52,10 @@ function firstRoll():void{
  * in the right positions/
  * the 5 in the loop is the number of imgTags
  */
-function retrieveValueFromImgTagsInArray():number[]{
-    
-    let imageValueArray = [5];
-    for(var i = 0; i < 5; i++){
-        imageValueArray[i] = parseInt(document.getElementsByTagName("img")[i].getAttribute("value"));
-    }
-    return imageValueArray;
-}
+
 /**
  * puts the dice pictures into the image tags where their corresponding numbers are.
  */
-function asignImagesToImageTags(){
-    let imageValue = retrieveValueFromImgTagsInArray();
-    let images = createImageArray();
-    for(var i = 0; i < 5; i++){
-        document.getElementsByTagName("img")[i].setAttribute("src", images[imageValue[i-1]]);
-    }
-}
 
 
 
