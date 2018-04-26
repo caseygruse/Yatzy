@@ -1,14 +1,25 @@
+let rollNum:number = 1;
 window.onload = function(){
-    let rollNum:number = 1;
-    
+   
     firstRoll();
-    
+    secondRollButtonClick();
+       
     startPlaying();
-    
-    
-    
-    
+    //move dice to hand
+    MoveDice("inPlay1", "hand1");
+    MoveDice("inPlay2", "hand2");
+    MoveDice("inPlay3", "hand3");
+    MoveDice("inPlay4", "hand4");
+    MoveDice("inPlay5", "hand5");
+    //move dice back to in play
+    MoveDice("hand1", "inPlay1");
+    MoveDice("hand2", "inPlay2");
+    MoveDice("hand3", "inPlay3");
+    MoveDice("hand4", "inPlay4");
+    MoveDice("hand5", "inPlay5"); 
 };
+
+
 
 /**
  * allows users to name their player names and puts there inputs into the score card
@@ -23,11 +34,9 @@ function startPlaying():void{
     })
 }   
 
-
-
-
 /**
- * hooks a click event to roll which will roll all 5 dice.
+ * hooks a click event to roll all 5 dice.
+ * 
  */
 function firstRoll():void{
     //let images = createImageArray();
@@ -36,37 +45,29 @@ function firstRoll():void{
     document.getElementById("roll").onclick = function(){
         for(var i = 0; i < 5; i++){
             let randValue:string = imagesValue[Math.floor(Math.random() * 6)]
-            //let randImage:string =images[Math.floor(Math.random() * 6)]
-            //let randTag:string = "slot"+i;
-            //document.getElementsByTagName("img")[i].setAttribute("src", randImage);
             document.getElementsByTagName("img")[i].setAttribute("value", randValue);
-            let giveImgValue = parseInt(document.getElementsByTagName("img")[i].getAttribute("value"))
-            document.getElementsByTagName("img")[i].setAttribute("src", imageArray[giveImgValue-1])
+            let giveImgValue = parseInt(document.getElementsByTagName("img")[i].getAttribute("value"));
+            document.getElementsByTagName("img")[i].setAttribute("src", imageArray[giveImgValue-1]);
+        } 
+        rollNum++;
+        if(rollNum >1){
+            this.onclick = null;
         }
-        
-        
     }  
 }
-/**
- * retrieves value from img tags so the correct dice number can be placed
- * in the right positions/
- * the 5 in the loop is the number of imgTags
- */
+
 
 /**
- * puts the dice pictures into the image tags where their corresponding numbers are.
+ * Creates an array of dice images
  */
-
-
-
-
-//creates the image array.
 function createImageArray():string[]{
     let images = ["dice/1.png", "dice/2.png", "dice/3.png", "dice/4.png", "dice/5.png", "dice/6.png"];
     let imageValue = [1, 2, 3, 4, 5, 6];
     return images;    
 }
-
+/**
+ * Creates an array of 1 through 6 for values which are used for the image tags.
+ */
 function createImageValueArray():string[]{
     let imageValue = ["1", "2", "3", "4", "5", "6"];
     return imageValue;    
@@ -76,14 +77,39 @@ function createImageValueArray():string[]{
 
 
 
-// function images(src:string, value:string):void{
-//     let pictureSlots = document.getElementById("imgList")
-//     var myImage = new Image(100, 100);
-//     myImage.src = src;
-//     myImage.nodeValue = value;
-//     pictureSlots.appendChild(myImage);
-// }
+function MoveDice(inPlayId:string, handId:string){
+    let inPlayImage = document.getElementById(inPlayId);
+    let inHandImage = document.getElementById(handId);
+    inPlayImage.addEventListener("click", function(){
+        if(inPlayImage.getAttribute("src") != ""){
+            inHandImage.setAttribute("src", inPlayImage.getAttribute("src"));
+            inHandImage.setAttribute("value", inPlayImage.getAttribute("value"));
+            inPlayImage.setAttribute("src", "");
+            inPlayImage.setAttribute("value", "0");
+        }
+    })
+}
 
-// function createImageTagArray(){
-//     images("1.png", "1");
-// }
+//attatch to a button click for second roll
+//should only roll the dice that are in play.
+function secondRoll(inPlayId:string):void{
+    let inPlayDice = document.getElementById(inPlayId);
+    let imagesValue = createImageValueArray();
+    let imageArray = createImageArray();
+    if(inPlayDice.getAttribute("value")!="0"){
+        let randValue:string = imagesValue[Math.floor(Math.random() * 6)]
+        inPlayDice.setAttribute("value", randValue);
+        let giveImgValue = parseInt(inPlayDice.getAttribute("value"));
+        inPlayDice.setAttribute("src", imageArray[giveImgValue-1]);
+    }
+}
+
+function secondRollButtonClick(){
+    document.getElementById("roll2").onclick = function(){
+    secondRoll("inPlay1");
+    secondRoll("inPlay2");
+    secondRoll("inPlay3");
+    secondRoll("inPlay4");
+    secondRoll("inPlay5");
+    }
+}
