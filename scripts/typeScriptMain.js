@@ -1,7 +1,8 @@
 var rollNum = 1;
+var turnNum = 1;
 window.onload = function () {
     firstRoll();
-    secondRollButtonClick();
+    secondRollButtonClick("roll2");
     startPlaying();
     MoveDice("inPlay1", "hand1");
     MoveDice("inPlay2", "hand2");
@@ -22,6 +23,7 @@ function startPlaying() {
         document.getElementById("player2").textContent = player2;
     });
 }
+var inHandScore = [0, 0, 0, 0, 0];
 function firstRoll() {
     var imagesValue = createImageValueArray();
     var imageArray = createImageArray();
@@ -34,7 +36,7 @@ function firstRoll() {
         }
         rollNum++;
         if (rollNum > 1) {
-            this.onclick = null;
+            document.getElementById("roll").setAttribute("disabled", "true");
         }
     };
 }
@@ -56,6 +58,8 @@ function MoveDice(inPlayId, handId) {
             inHandImage.setAttribute("value", inPlayImage.getAttribute("value"));
             inPlayImage.setAttribute("src", "");
             inPlayImage.setAttribute("value", "0");
+            inHandScoreArray();
+            PopulatePlayer1Score();
         }
     });
 }
@@ -70,12 +74,56 @@ function secondRoll(inPlayId) {
         inPlayDice.setAttribute("src", imageArray[giveImgValue - 1]);
     }
 }
-function secondRollButtonClick() {
-    document.getElementById("roll2").onclick = function () {
+function secondRollButtonClick(buttonId) {
+    document.getElementById(buttonId).onclick = function () {
         secondRoll("inPlay1");
         secondRoll("inPlay2");
         secondRoll("inPlay3");
         secondRoll("inPlay4");
         secondRoll("inPlay5");
+        rollNum++;
+        if (rollNum > 3) {
+            document.getElementById("roll2").setAttribute("disabled", "true");
+        }
     };
+}
+function inHandScoreArray() {
+    var inHandDice = document.getElementsByClassName("yourHand");
+    for (var i = 0; i < inHandDice.length; i++) {
+        var dice = inHandDice[i];
+        var diceValueInt = parseInt(dice.getAttribute("value"));
+        if (isNaN(diceValueInt)) {
+            diceValueInt = 0;
+        }
+        inHandScore[i] = diceValueInt;
+    }
+}
+function resetRollNum() {
+    rollNum = 1;
+    document.getElementById("roll").disabled = false;
+    document.getElementById("roll2").disabled = false;
+}
+function populateScoreCardNums(inputId, scoreType) {
+    inHandScore.sort();
+    var score = 0;
+    if (inHandScore.indexOf(scoreType) != -1) {
+        for (var i = 0; i < inHandScore.length; i++) {
+            if (inHandScore[i] == scoreType) {
+                score += scoreType;
+            }
+        }
+        var stringScore = score.toString();
+        document.getElementById(inputId).value = stringScore;
+    }
+    else {
+        document.getElementById(inputId).value = "0";
+    }
+}
+function PopulatePlayer1Score() {
+    populateScoreCardNums("1p1", 1);
+    populateScoreCardNums("1p2", 2);
+    populateScoreCardNums("1p3", 3);
+    populateScoreCardNums("1p4", 4);
+    populateScoreCardNums("1p5", 5);
+    populateScoreCardNums("1p6", 6);
 }

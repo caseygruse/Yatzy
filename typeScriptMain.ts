@@ -1,9 +1,14 @@
 let rollNum:number = 1;
+let turnNum:number = 1;
 window.onload = function(){
-   
+    
+    
+    
+    
     firstRoll();
-    secondRollButtonClick();
-       
+    secondRollButtonClick("roll2");
+    //resetRollNum();
+    
     startPlaying();
     //move dice to hand
     MoveDice("inPlay1", "hand1");
@@ -17,6 +22,8 @@ window.onload = function(){
     MoveDice("hand3", "inPlay3");
     MoveDice("hand4", "inPlay4");
     MoveDice("hand5", "inPlay5"); 
+
+    
 };
 
 
@@ -33,10 +40,10 @@ function startPlaying():void{
     
     })
 }   
-
+var inHandScore:number[] = [0,0,0,0,0];
 /**
  * hooks a click event to roll all 5 dice.
- * 
+ * fills the inplay img tags with a random src and value that matches.
  */
 function firstRoll():void{
     //let images = createImageArray();
@@ -51,7 +58,7 @@ function firstRoll():void{
         } 
         rollNum++;
         if(rollNum >1){
-            this.onclick = null;
+            document.getElementById("roll").setAttribute("disabled", "true");
         }
     }  
 }
@@ -86,6 +93,9 @@ function MoveDice(inPlayId:string, handId:string){
             inHandImage.setAttribute("value", inPlayImage.getAttribute("value"));
             inPlayImage.setAttribute("src", "");
             inPlayImage.setAttribute("value", "0");
+            inHandScoreArray();
+            //put score card function calls here
+            PopulatePlayer1Score();
         }
     })
 }
@@ -103,13 +113,84 @@ function secondRoll(inPlayId:string):void{
         inPlayDice.setAttribute("src", imageArray[giveImgValue-1]);
     }
 }
-
-function secondRollButtonClick(){
-    document.getElementById("roll2").onclick = function(){
-    secondRoll("inPlay1");
-    secondRoll("inPlay2");
-    secondRoll("inPlay3");
-    secondRoll("inPlay4");
-    secondRoll("inPlay5");
+/**
+ * rolls only the die that are in play
+ * @param buttonId = what ever button you want to be hooked up to the click event
+ */
+function secondRollButtonClick(buttonId:string){
+    document.getElementById(buttonId).onclick = function(){
+        secondRoll("inPlay1");
+        secondRoll("inPlay2");
+        secondRoll("inPlay3");
+        secondRoll("inPlay4");
+        secondRoll("inPlay5");
+        rollNum++;
+        if(rollNum >3){
+            document.getElementById("roll2").setAttribute("disabled", "true");
+        }
     }
 }
+
+
+
+
+
+/**
+ * puts all the dice values that are in your hand into an
+ * array called inHandScore.
+ */
+function inHandScoreArray(){
+    let inHandDice = document.getElementsByClassName("yourHand");
+    for(var i = 0; i < inHandDice.length; i++){
+        let dice = inHandDice[i];
+        let diceValueInt = parseInt(dice.getAttribute("value"));
+       if(isNaN(diceValueInt)){
+            diceValueInt = 0;
+        }
+        inHandScore[i] = diceValueInt;
+    }
+ }
+
+
+function resetRollNum(){
+        rollNum = 1;
+        (<HTMLButtonElement>document.getElementById("roll")).disabled = false;
+        (<HTMLButtonElement>document.getElementById("roll2")).disabled = false;
+ }
+ 
+
+ /**
+  * checks your inHandScore Array for the possible scores you have.
+  * @param inputId the scorecard id that belongs to the number your checking for
+  * @param scoreType the number you are checking for.
+  */
+ function populateScoreCardNums(inputId:string, scoreType:number){
+    inHandScore.sort();
+    let score = 0;
+    if(inHandScore.indexOf(scoreType)!= -1){ //if the array has the number Im checking for run this code 
+        //score = scoreType;
+        for(var i = 0; i < inHandScore.length; i++){
+            if(inHandScore[i] == scoreType){
+                score+=scoreType;  
+            }
+        }
+        let stringScore = score.toString();
+        (<HTMLInputElement>document.getElementById(inputId)).value = stringScore;
+    }
+    else{
+        (<HTMLInputElement>document.getElementById(inputId)).value = "0";
+    }
+}
+/**
+ * calls populateScoreCardNums for all player 1 scores
+ */
+function PopulatePlayer1Score(){
+    populateScoreCardNums("1p1", 1);
+    populateScoreCardNums("1p2", 2);
+    populateScoreCardNums("1p3", 3);
+    populateScoreCardNums("1p4", 4);
+    populateScoreCardNums("1p5", 5);
+    populateScoreCardNums("1p6", 6);
+}
+
+

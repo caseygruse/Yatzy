@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>The Yatzy Game</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="scripts/javaScriptMain.js"></script>
+    <!--<script src="scripts/javaScriptMain.js"></script>-->
     <script src="scripts/typeScriptMain.js"></script>
 </head>
 <body>
@@ -35,9 +35,9 @@
     <button id="roll" type="button">ROLL</button>
     <br>
     <button id="roll2" type="button">2nd Roll</button>
-
     <br>
     <br>
+    <button id="endTurn" type="button" onclick="resetRollNum();">EndTurn</button>
 
     <h3>Your Hand</h3>
 
@@ -58,33 +58,33 @@
         </tr>
         <tr> 
             <td>ones</td>
-            <td><input class="1Score" type="text"></td>
-            <td><input class="2Score" type="text"></td>
+            <td><input id="1p1"class="1Score" type="text"></td>
+            <td><input id="2p1"class="2Score" type="text"></td>
         </tr>
         <tr>
             <td>twos</td>
-            <td><input class="1Score" type="text"></td>
-            <td><input class="2Score" type="text"></td>
+            <td><input id="1p2"class="1Score" type="text"></td>
+            <td><input id="2p2"class="2Score" type="text"></td>
         </tr>
         <tr>
             <td>threes</td>
-            <td><input class="1Score" type="text"></td>
-            <td><input class="2Score" type="text"></td>
+            <td><input id="1p3"class="1Score" type="text"></td>
+            <td><input id="2p3"class="2Score" type="text"></td>
         </tr>
         <tr>
             <td>fours</td>
-            <td><input class="1Score" type="text"></td>
-            <td><input class="2Score" type="text"></td>
+            <td><input id="1p4"class="1Score" type="text"></td>
+            <td><input id="2p4"class="2Score" type="text"></td>
         </tr>
         <tr>
             <td>fives</td>
-            <td><input class="1Score" type="text"></td>
-            <td><input class="2Score" type="text"></td>
+            <td><input id="1p5"class="1Score" type="text"></td>
+            <td><input id="2p5"class="2Score" type="text"></td>
         </tr>
         <tr>
             <td>sixes</td>
-            <td><input class="1Score" type="text"></td>
-            <td><input class="2Score" type="text"></td>
+            <td><input id="1p6"class="1Score" type="text"></td>
+            <td><input id="2p6"class="2Score" type="text"></td>
         </tr>
         <tr>
             <td>three of a kind</td>
