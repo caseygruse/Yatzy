@@ -4,6 +4,7 @@
     width: 400px;
     float: right;
     border: 3px solid black;
+
 }
 
 td, th {
@@ -14,5 +15,20 @@ td, th {
 
 
 div#preload { display: none; 
+}
+
+#rollWrapper{
+    float: right;
+    padding-right: 40%;
+}
+
+.buttons{
+    border-radius: 40%;
+    padding: 20%;
+
+}
+
+#endGame{
+    padding: 5%;
 }
 

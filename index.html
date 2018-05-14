@@ -22,8 +22,9 @@
     <br>
     <button id="letsPlay" type="button">Lets Play</button>
     <br>
-
-
+    <h3>Dice On The Board</h3>
+    <br>
+    <span id="turn"> </span>
 
     <img id="inPlay1" class="inPlay" src="dice/1.png"></img>
     <img id="inPlay2" class="inPlay" src="dice/2.png"></img>
@@ -31,13 +32,15 @@
     <img id="inPlay4" class="inPlay" src="dice/4.png"></img>
     <img id="inPlay5" class="inPlay" src="dice/5.png"></img>
     
-
-    <button id="roll" type="button">ROLL</button>
+    <div id="rollWrapper">
+        <button class="buttons" id="roll" type="button">FIRST ROLL</button>
+        <br>
+        <br>
+        <button class="buttons" id="roll2" type="button">2nd and 3rd Roll</button>
+    </div>
     <br>
-    <button id="roll2" type="button">2nd Roll</button>
     <br>
-    <br>
-    <button id="endTurn" type="button" onclick="resetRollNum();">EndTurn</button>
+    <!--<button id="endTurn" type="button" onclick="resetRollNum();">EndTurn</button> -->
 
     <h3>Your Hand</h3>
 
@@ -46,9 +49,13 @@
     <img id="hand3" class="yourHand" src="" value="0"></img>
     <img id="hand4" class="yourHand"src="" value="0"></img>
     <img id="hand5" class="yourHand"src="" value="0"></img>
-
-
-
+    <br>
+    <br>
+    <span id="player1Score"> </span>
+    <br>
+    <br>
+    <span id="player2Score"> </span>
+    <br>
 
     <table id="score">
         <tr>
@@ -58,76 +65,87 @@
         </tr>
         <tr> 
             <td>ones</td>
-            <td><input id="1p1"class="1Score" type="text"></td>
-            <td><input id="2p1"class="2Score" type="text"></td>
+            <td><input id="1p1"class="1Score" class="bottomTotal1" type="text" readonly></td>
+            <td><input id="2p1"class="2Score" type="text" readonly></td>
         </tr>
         <tr>
             <td>twos</td>
-            <td><input id="1p2"class="1Score" type="text"></td>
-            <td><input id="2p2"class="2Score" type="text"></td>
+            <td><input id="1p2"class="1Score" class="bottomTotal1" type="text" readonly></td>
+            <td><input id="2p2"class="2Score" type="text" readonly></td>
         </tr>
         <tr>
             <td>threes</td>
-            <td><input id="1p3"class="1Score" type="text"></td>
-            <td><input id="2p3"class="2Score" type="text"></td>
+            <td><input id="1p3"class="1Score" class="bottomTotal1" type="text"readonly></td>
+            <td><input id="2p3"class="2Score" type="text"readonly></td>
         </tr>
         <tr>
             <td>fours</td>
-            <td><input id="1p4"class="1Score" type="text"></td>
-            <td><input id="2p4"class="2Score" type="text"></td>
+            <td><input id="1p4"class="1Score" class="bottomTotal1" type="text" readonly></td>
+            <td><input id="2p4"class="2Score" type="text" readonly></td>
         </tr>
         <tr>
             <td>fives</td>
-            <td><input id="1p5"class="1Score" type="text"></td>
-            <td><input id="2p5"class="2Score" type="text"></td>
+            <td><input id="1p5"class="1Score" class="bottomTotal1" type="text" readonly></td>
+            <td><input id="2p5"class="2Score"  type="text" readonly></td>
         </tr>
         <tr>
             <td>sixes</td>
-            <td><input id="1p6"class="1Score" type="text"></td>
-            <td><input id="2p6"class="2Score" type="text"></td>
-        </tr>
-        <tr>
-            <td>three of a kind</td>
-            <td><input class="1Score" type="text"></td>
-            <td><input class="2Score" type="text"></td>
-        </tr>
-        <tr>
-            <td>four of a kind</td>
-            <td><input class="1Score" type="text"></td>
-            <td><input class="2Score" type="text"></td>
-        </tr>
-        <tr>
-            <td>full house</td>
-            <td><input class="1Score" type="text"></td>
-            <td><input class="2Score" type="text"></td>
-        </tr>
-        <tr>
-            <td>small straight</td>
-            <td><input class="1Score" type="text"></td>
-            <td><input class="2Score" type="text"></td>
-        </tr>
-        <tr>
-            <td>large straight</td>
-            <td><input class="1Score" type="text"></td>
-            <td><input class="2Score" type="text"></td>
-        </tr>
-        <tr>
-            <td>chance</td>
-            <td><input class="1Score" type="text"></td>
-            <td><input class="2Score" type="text"></td>
-        </tr>
-        <tr>
-            <td>yahtzy</td>
-            <td><input class="1Score" type="text"></td>
-            <td><input class="2Score" type="text"></td>
+            <td><input id="1p6"class="1Score" class="bottomTotal1" type="text"readonly></td>
+            <td><input id="2p6"class="2Score" type="text"readonly></td>
         </tr>
         <tr>
             <td>total</td>
-            <td><input class="1Score" type="text"></td>
-            <td><input class="2Score" type="text"></td>
+            <td><input id="1pTotal" type="text" readonly></td>
+            <td><input id="2pTotal" type="text" readonly></td>
         </tr>
-        
+        <tr>
+            <td>bonus</td>
+            <td><input class="1Score" id="1bonus" type="text" readonly></td>
+            <td><input class="2Score" id="2bonus" type="text" readonly></td>
+        </tr>
+        <tr>
+            <td>three of a kind</td>
+            <td><input id="1pThreeKind"class="1Score" type="text" readonly></td>
+            <td><input id="2pThreeKind"class="2Score" type="text" readonly></td>
+        </tr>
+        <tr>
+            <td>four of a kind</td>
+            <td><input id="1pFourKind"class="1Score" type="text"readonly></td>
+            <td><input id="2pFourKind"class="2Score" type="text"readonly></td>
+        </tr>
+        <tr>
+            <td>full house</td>
+            <td><input id = "1pFullHouse"class="1Score" type="text" readonly></td>
+            <td><input id = "2pFullHouse"class="2Score" type="text" readonly></td>
+        </tr>
+        <tr>
+            <td>small straight</td>
+            <td><input id="1pSmallStraight"class="1Score" type="text"readonly></td>
+            <td><input id="2pSmallStraight"class="2Score" type="text"readonly></td>
+        </tr>
+        <tr>
+            <td>large straight</td>
+            <td><input id="1pLargeStraight"class="1Score" type="text"readonly></td>
+            <td><input id="2pLargeStraight"class="2Score" type="text"readonly></td>
+        </tr>
+        <tr>
+            <td>chance</td>
+            <td><input id="1pChance"class="1Score" type="text" readonly></td>
+            <td><input id="2pChance"class="2Score" type="text" readonly></td>
+        </tr>
+        <tr>
+            <td>yahtzy</td>
+            <td><input id="1pYatzy"class="1Score" type="text" readonly></td>
+            <td><input id="2pYatzy"class="2Score" type="text" readonly></td>
+        </tr>
+        <tr>
+            <td>Yahtzy Bonus</td>
+            <td><input id="1pYatzyBonus" class="1Score" type="text" readonly></td>
+            <td><input id="2pYatzyBonus" class="2Score" type="text" readonly></td>
+
+        </tr>
     </table>
+    <button type="button" id="endGame">End Game</button>
 
 
 
@@ -140,5 +158,7 @@
         <img src="dice/6.png" width="1" height="1" alt="Image 03" />
          
      </div>
+
+     <p id="rules"> </p>
 </body>
 </html>
