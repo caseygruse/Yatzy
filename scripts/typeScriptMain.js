@@ -77,12 +77,14 @@ function secondRoll(inPlayId) {
 }
 function secondRollButtonClick(buttonId) {
     document.getElementById(buttonId).onclick = function () {
-        secondRoll("inPlay1");
-        secondRoll("inPlay2");
-        secondRoll("inPlay3");
-        secondRoll("inPlay4");
-        secondRoll("inPlay5");
-        rollNum++;
+        if (document.getElementById("roll").disabled == true) {
+            secondRoll("inPlay1");
+            secondRoll("inPlay2");
+            secondRoll("inPlay3");
+            secondRoll("inPlay4");
+            secondRoll("inPlay5");
+            rollNum++;
+        }
         if (rollNum > 3) {
             document.getElementById("roll2").setAttribute("disabled", "true");
         }
@@ -330,7 +332,7 @@ function disableBoxes1(boxid) {
             totalOneThroughSix1();
             checkForBonus("1pTotal", "1bonus");
             yatzyBonus("1pYatzy", "1pYatzyBonus");
-            totalAllScores("1Score", "player1Score", "player 1: ");
+            totalAllScores("1Score", "player1Score", "player 1: ", "1bonus");
             turnNum++;
         }
     };
@@ -347,7 +349,7 @@ function disableBoxes2(boxid) {
             totalOneThroughSix2();
             checkForBonus("2pTotal", "2bonus");
             yatzyBonus("2pYatzy", "2pYatzyBonus");
-            totalAllScores("2Score", "player2Score", "player 2 : ");
+            totalAllScores("2Score", "player2Score", "player 2 : ", "2bonus");
             turnNum++;
         }
     };
@@ -457,14 +459,16 @@ function yatzyCheck() {
         return true;
     }
 }
-function totalAllScores(playerScoreClass, scoreSpan, playerNum) {
+function totalAllScores(playerScoreClass, scoreSpan, playerNum, bonusId) {
     var scores = document.getElementsByClassName(playerScoreClass);
     var total = 0;
+    var bonus = parseInt(document.getElementById(bonusId).value);
     for (var i = 0; i < scores.length; i++) {
         if (scores[i].getAttribute("disabled") != null) {
             total += parseInt(scores[i].value);
         }
     }
+    total += bonus;
     document.getElementById(scoreSpan).innerText = playerNum + total.toString();
 }
 function displayWinner() {

@@ -4,6 +4,8 @@
     width: 400px;
     float: right;
     border: 3px solid black;
+    margin-top: -20%; 
+    background-color: yellowgreen;
 
 }
 
@@ -17,18 +19,71 @@ td, th {
 div#preload { display: none; 
 }
 
-#rollWrapper{
-    float: right;
-    padding-right: 40%;
-}
 
 .buttons{
     border-radius: 40%;
-    padding: 20%;
+    padding: 15px;
+    background-color: lightblue;
+    border: 2px solid black;
+    margin: 5px;
+    
+    
 
 }
 
 #endGame{
-    padding: 5%;
+    padding: 15px;
+    border: 1px solid black;
+    
+}
+
+#boardWrapper{
+    border: 1px solid black;
+    float: left;
+    width: 50%;
+    background-color: green;
+    
+}
+
+#showTurn{
+    font-size: xx-large;
+}
+#rollWrapper{
+    float: left;
+    border: 1px solid black;
+    margin-left: 4%;
+    margin-top: -3%;
+}
+
+img {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+#turn{
+    font-size: xx-large;
+}
+
+#top{
+    width: 50%;
+    border: 1px solid black;
+}
+
+#rules{
+    margin-top: 20%;
+    clear: left;
+    clear: right;
+}
+
+body{
+    background-color: lightgreen;
+}
+
+#endGame{
+    background-color: red;
+    margin-left: 20%;
+    
 }
 
